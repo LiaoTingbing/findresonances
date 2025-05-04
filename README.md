@@ -1,1 +1,5 @@
 # findresonances
+
+## 原理
+
+

@@ -4,7 +4,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 
-set(CMAKE_BUILD_PARALLEL_LEVEL 4)
+#set(CMAKE_BUILD_PARALLEL_LEVEL 4)
 project ("findresonances")
 
 
