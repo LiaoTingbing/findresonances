@@ -162,8 +162,11 @@ void findresonances(
 
 	cx_mat B = v_singular_matrix_reduced * singular_values_matrix_reduced * P;
 
+	//	计算频率
 	vec frequency = real(IU * log(u) / time_step / 2 / PI);
+	//	计算衰减常数
 	vec decay_constant = -imag(IU * log(u) / time_step);
+	//	计算Q因子
 	vec Q_factor = 2 * PI * abs(frequency) / 2 / decay_constant;
 	//# z是输入，u是输出特征值
 	//	# 误差计算和归一化
@@ -174,16 +177,16 @@ void findresonances(
 		B.col(i) = B.col(i) / normNum(0);
 		cx_double u0 = u(i);
 		cx_mat uGuest = sqrt(B.col(i).st() * fdm_matrix.U2 * B.col(i));
-		if (real(u0 / uGuest(0)) < 0.0)
+		if ( (real(u0) / real(uGuest(0))) < 0.0)
 		{
 			uGuest(0) = -uGuest(0);
 		}
 		R(i) = abs(log(uGuest(0) / u0)) / abs(log(u0));
 	}
 	// 计算幅值
-	cx_vec cz(z.n_elem);
-	vec nv1 = linspace(0, signal_half_length - 1, signal_half_length);
-	cx_vec c10 = input_signal.rows(0, signal_half_length - 1);
+	cx_vec cz(z.n_elem,fill::zeros);
+	vec nv1 = linspace(0, signal_half_length , signal_half_length+1);
+	cx_vec c10 = input_signal.rows(0, signal_half_length );
 	for (size_t i = 0; i < z.n_elem; i++)
 	{
 		cz(i) = dot(c10, pow(cx_vec(nv1.n_elem, fill::value(z(i))), -nv1));
