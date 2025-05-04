@@ -154,7 +154,7 @@ void findresonances(
 
 		zNxet = u / abs(u);
 
-		if (z.n_elem == zNxet.n_elem and norm(z - zNxet) < error_threshold)
+		if (z.n_elem == zNxet.n_elem && norm(z - zNxet) < error_threshold)
 		{
 			break;
 		}
