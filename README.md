@@ -37,7 +37,7 @@ $$
 	findresonances(signal_long, t_long, vec{0, 100}, 200, 1e-5, 1000, 1e-10);
 
  ```
- 使用方法
+ 函数原型
  ```
  findresonances(
 	const cx_vec& complex_signal,
