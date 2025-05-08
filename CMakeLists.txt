@@ -7,7 +7,7 @@ set(CMAKE_TOOLCHAIN_FILE E:/VisualStudioFiles/vcpkg/vcpkg/scripts/buildsystems/v
 project ("findresonances")
 
 # 将源代码添加到此项目的可执行文件。
-add_executable(findresonances "src/example1.cpp" "include/main.h" "include/findresonances.h" "src/findresonances.cpp"
+add_executable(findresonances "src/example1.cpp"  "include/findresonances.h" "src/findresonances.cpp"
 )
 
 

@@ -1,5 +1,5 @@
 ﻿
-
+#pragma once
 #include <armadillo>
 #include <map>
 #include <cstring>

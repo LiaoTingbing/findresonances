@@ -1,8 +1,8 @@
 ﻿// findresonances.cpp: 定义应用程序的入口点。
 //
 
-#include "../include/main.h"
-#include <ctime>
+
+#include "../include/findresonances.h"
 
 using namespace std;
 
