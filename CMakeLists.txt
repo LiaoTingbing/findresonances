@@ -3,23 +3,15 @@
 #
 cmake_minimum_required(VERSION 3.10)
 
-
+set(CMAKE_TOOLCHAIN_FILE E:/VisualStudioFiles/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake)
 project ("findresonances")
 
-
-include_directories(
-	E:/VisualStudioFiles/vcpkg/ku/armadillo-14.4.1/include
-
-)
-
 # 将源代码添加到此项目的可执行文件。
-add_executable(findresonances "src/main.cpp" "include/main.h" "include/findresonances.h" "src/findresonances.cpp"
+add_executable(findresonances "src/example1.cpp" "include/main.h" "include/findresonances.h" "src/findresonances.cpp"
 )
 
 
 # TODO: 如有需要，请添加测试并安装目标。
 
-target_link_libraries(
-	${PROJECT_NAME}
-	E:/VisualStudioFiles/vcpkg/ku/armadillo-14.4.1/lib_win64/libopenblas.lib
-)
+find_package(Armadillo CONFIG REQUIRED)
+target_link_libraries(findresonances PRIVATE armadillo)

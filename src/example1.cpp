@@ -17,7 +17,7 @@ int main()
 	double ampl2 = 0.45;
 	double phase2 = 1.234;
 
-	vec t_long = linspace(0, 20, 201);
+	vec t_long = linspace(0, 20, 2000001);
 	cx_vec signal_long = ampl1 * exp(-IU*(2.0 * PI * f1 * t_long - phase1)) % exp(-alpha1 * t_long) + ampl2 * exp(-IU*(2 * PI * f2 * t_long - phase2)) % exp(-alpha2 * t_long);
  
 	auto t1 = clock();
