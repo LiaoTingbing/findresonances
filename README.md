@@ -4,7 +4,7 @@
 返回在用户指定的频率范围内 $[f_{min},f_{max}]$ ，从复数信号的时间轨迹中提取的谐振频率、衰减常数、Q 因子、振幅和相位。findresonances 脚本命令使用一种称为滤波器对角化的谐波反转方法,通过指数衰减的谐波振荡的叠加来近似时间信号，其形式为
 
 $$
-s(t) \approx \sum_{k=1}^{N} A_{k}e^{-i(2\pi f_{k}t - \phi_{k})}e^{-\alpha_{k}t}, \text{ for complex signals}
+s(t) \approx \sum_{k=1}^{N} A_{k}e^{-i(2\pi f_{k}t - \phi_{k})}e^{-\alpha_{k}t}
 $$
 
 以下是 $N$ 谐振的数量，每个谐振由四个实值参数表征：
@@ -32,7 +32,7 @@ $$
 	double phase2 = 1.234;
 
 	vec t_long = linspace(0, 20, 201);
-	cx_vec signal_long = ampl1 * exp(-IU*(2.0 * PI * f1 * t_long - phase1)) % exp(-alpha1 * t_long) 
+	cx_vec signal_long = ampl1 * **exp**(-IU*(2.0 * PI * f1 * t_long - phase1)) % exp(-alpha1 * t_long) 
 		+ ampl2 * exp(-IU*(2 * PI * f2 * t_long - phase2)) % exp(-alpha2 * t_long);
 	findresonances(signal_long, t_long, vec{0, 100}, 200, 1e-5, 1000, 1e-10);
 
