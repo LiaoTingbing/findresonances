@@ -3,12 +3,12 @@
 #
 cmake_minimum_required(VERSION 3.10)
 
-set(CMAKE_TOOLCHAIN_FILE E:/VisualStudioFiles/vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake)
+ 
 project ("findresonances")
 
 # 将源代码添加到此项目的可执行文件。
 add_executable(findresonances "src/example1.cpp"  "include/findresonances.h" "src/findresonances.cpp"
-)
+ )
 
 
 # TODO: 如有需要，请添加测试并安装目标。

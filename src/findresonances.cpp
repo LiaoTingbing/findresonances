@@ -44,7 +44,8 @@ FdmMatrix fdmMatrixGChenGuo(const cx_vec& complex_signal,
 		G32(i) = dot(ulk, c32);
 
 	}
-	for (size_t i = 0; i < jNum; i++)
+
+	for (int i = 0; i < jNum; i++)
 	{
 		cx_double u1 = z(i);
 		cx_double u1K = pow(u1, -M);
@@ -56,7 +57,8 @@ FdmMatrix fdmMatrixGChenGuo(const cx_vec& complex_signal,
 		cx_double G31i = G31(i);
 		cx_double G32i = G32(i);
 
-		for (size_t j = i + 1; j < jNum; j++)
+		//#pragma omp parallel for
+		for (int j = i + 1; j < jNum; j++)
 		{
 			cx_double u2 = z(j);
 			cx_double u2K = pow(u2, -M);
@@ -66,9 +68,9 @@ FdmMatrix fdmMatrixGChenGuo(const cx_vec& complex_signal,
 			U1(i, j) = coff * (u1 * G11(j) - u2 * G11i - u1K * G31(j) + u2K * G31i);
 			U2(i, j) = coff * (u1 * G12(j) - u2 * G12i - u1K * G32(j) + u2K * G32i);
 
-			U0(j, i) = coff * (u1 * G10(j) - u2 * G10i - u1K * G30(j) + u2K * G30i);
-			U1(j, i) = coff * (u1 * G11(j) - u2 * G11i - u1K * G31(j) + u2K * G31i);
-			U2(j, i) = coff * (u1 * G12(j) - u2 * G12i - u1K * G32(j) + u2K * G32i);
+			U0(j, i) = U0(i, j);
+			U1(j, i) = U1(i, j);
+			U2(j, i) = U2(i, j);
 		}
 	}
 
@@ -177,16 +179,16 @@ void findresonances(
 		B.col(i) = B.col(i) / normNum(0);
 		cx_double u0 = u(i);
 		cx_mat uGuest = sqrt(B.col(i).st() * fdm_matrix.U2 * B.col(i));
-		if ( (real(u0) / real(uGuest(0))) < 0.0)
+		if ((real(u0) / real(uGuest(0))) < 0.0)
 		{
 			uGuest(0) = -uGuest(0);
 		}
 		R(i) = abs(log(uGuest(0) / u0)) / abs(log(u0));
 	}
 	// 计算幅值
-	cx_vec cz(z.n_elem,fill::zeros);
-	vec nv1 = linspace(0, signal_half_length , signal_half_length+1);
-	cx_vec c10 = input_signal.rows(0, signal_half_length );
+	cx_vec cz(z.n_elem, fill::zeros);
+	vec nv1 = linspace(0, signal_half_length, signal_half_length + 1);
+	cx_vec c10 = input_signal.rows(0, signal_half_length);
 	for (size_t i = 0; i < z.n_elem; i++)
 	{
 		cz(i) = dot(c10, pow(cx_vec(nv1.n_elem, fill::value(z(i))), -nv1));
@@ -219,7 +221,7 @@ void findresonances(
 	//phase.st().print();
 	//error_estimate.st().print();
 
-	mat fs_detailed(frequency.n_elem , 6 , fill::zeros);
+	mat fs_detailed(frequency.n_elem, 6, fill::zeros);
 	fs_detailed.col(0) = frequency;
 	fs_detailed.col(1) = decay_constant;
 	fs_detailed.col(2) = Q_factor;
@@ -236,10 +238,6 @@ void findresonances(
 	fs["amplitude"] = amplitude;
 	fs["phase"] = phase;
 	fs["error_estimate"] = error_estimate;
- 
-
-	 
-
 
 }
 
